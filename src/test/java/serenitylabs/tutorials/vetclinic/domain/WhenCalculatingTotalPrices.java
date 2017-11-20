@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import org.junit.Assert;
 
+import static org.hamcrest.Matchers.*;
+
 public class WhenCalculatingTotalPrices {
 
     @Test
@@ -15,6 +17,12 @@ public class WhenCalculatingTotalPrices {
         int totalPrice = TotalConsultationPrice.includingTax().forANetPriceOf(netPrice);
 
         // THEN
-        Assert.assertEquals(120, totalPrice);
+        //Assert.assertEquals(120, totalPrice);
+
+        /* Step 1 */
+        //Assert.assertThat(totalPrice, is(equalTo(120)));
+
+        /* Step 2 */
+        Assert.assertThat(totalPrice, greaterThan(119));
     }
 }
