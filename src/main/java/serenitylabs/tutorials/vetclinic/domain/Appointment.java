@@ -25,6 +25,18 @@ public class Appointment {
         this(petName, owner, appointmentTime, null);
     }
 
+    public Boolean isBefore(LocalDateTime time){
+        if(this.appointmentTime.isBefore(time))
+            return true;
+        else return false;
+    }
+
+    public Boolean isAfter(LocalDateTime time){
+        if(this.appointmentTime.isAfter(time))
+            return true;
+        else return false;
+    }
+
 
     public String getPetName() {
         return petName;

@@ -40,4 +40,33 @@ public class WhenWeBookAnAppointment {
         Assert.assertThat(appointment.getReason().get(), containsString("He is sick"));
     }
 
+    @Test
+    public void appointment_time_before_calculation() throws Exception {
+        Appointment appointment = Appointment
+                .forPetCalled("Fido")
+                .ownedBy("Fred")
+                .because("He is sick")
+                .at(LocalDateTime
+                .of(2017,11,20,19,0,0));
+
+        Assert.assertThat(appointment.isBefore(LocalDateTime.now()),is(equalTo(true)));
+        Assert.assertThat(appointment.isBefore(LocalDateTime.of(2017,11,20,18,59,59)),is(equalTo(false)));
+        // this is interesting = the equal time case
+        Assert.assertThat(appointment.isBefore(LocalDateTime.of(2017,11,20,19,0,0)),is(equalTo(false)));
+    }
+
+    @Test
+    public void appointment_time_after_calculation() throws Exception {
+        Appointment appointment = Appointment
+                .forPetCalled("Fido")
+                .ownedBy("Fred")
+                .because("He is sick")
+                .at(LocalDateTime
+                        .of(2017,11,20,19,0,0));
+
+        Assert.assertThat(appointment.isAfter(LocalDateTime.now()),is(equalTo(false)));
+        Assert.assertThat(appointment.isAfter(LocalDateTime.of(2017,11,20,19,0,01)),is(equalTo(false)));
+        // this is interesting = the equal time case
+        Assert.assertThat(appointment.isAfter(LocalDateTime.of(2017,11,20,19,0,0)),is(equalTo(false)));
+    }
 }
