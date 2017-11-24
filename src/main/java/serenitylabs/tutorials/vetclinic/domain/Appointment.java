@@ -25,6 +25,7 @@ public class Appointment {
         this(petName, owner, appointmentTime, null);
     }
 
+    //TODO - should we handle a case when time parameter is NULL?
     public Boolean isBefore(LocalDateTime time){
         if(this.appointmentTime.isBefore(time))
             return true;
